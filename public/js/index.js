@@ -1,6 +1,11 @@
-$(window).load(function(){
+var activeID = 0;
+$(window).ready(function(){
   scroll();
   carousel();
+});
+
+$(window).load(function(){
+  load_title();
 });
 
 function scroll() {
@@ -20,35 +25,60 @@ function scroll() {
       scrollTo : { y: finalScroll, autoKill:true },
         ease: "Expo.easeInOut",
         overwrite: 5              
-      });
+    });
 
   });
+}
+
+function load_title(){
+  itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
+  var title         =  $('.slideShow__slideTitle')[activeID];
+  var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
+
+  TweenLite.set(title, {perspective:400});
+  var tl            = new TimelineLite(); 
+  if (title){
+    tl.fromTo(title, 0.6, {top:0, opacity: 0},
+        { 
+          rotationX:360, 
+          transformOrigin:"0% 50% -50",  
+          ease:Circ.easeOut,top:(itemH - (itemH/6)-100),
+          opacity:.5
+        }, '-=0.3');  
+  }
+  if (subTitle)
+    tl.fromTo(subTitle, 0.6, {top:0, opacity: 0},
+      {
+        rotationX:360, 
+        transformOrigin:"0% 50% -50",  
+        ease:Back.easeOut,top:(itemH - (itemH/6)),
+        opacity:.5
+      }, '-=0.3');
 }
 
 
 function carousel(argument) {
   var carousel = (function () {
-
-    var activeID = 0,
-        itemW = document.getElementById("carousel_container").offsetWidth,
-        itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight,
-        carousel_count = $('.carousel_item').length,
-        $carouselItems = $('.carousel_items'),
-        $carouselItem = $('.carousel_item'),
-        $slideShow__slideTitle = $('.slideShow__slideTitle'),
-        $slideShow__slideSubTitle = $('.slideShow__slideSubTitle'),
-        $arrowPrev = $('.item_prev'),
-        $arrowNext = $('.item_next'),
-        $itemArrow = $('.item_arrow'),
-        $navDot,
-        $navDots = $('.nav_dots'),
-        swipeDir,
-        slideSpeed = .45,
-        slideMeth = Power2.EaseInOut;
+    
+    var   itemW = document.getElementById("carousel_container").offsetWidth+1,
+          itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight,
+          carousel_count = $('.carousel_item').length,
+          $carouselItems = $('.carousel_items'),
+          $carouselItem = $('.carousel_item'),
+          $slideShow__slideTitle = $('.slideShow__slideTitle'),
+          $slideShow__slideSubTitle = $('.slideShow__slideSubTitle'),
+          $arrowPrev = $('.item_prev'),
+          $arrowNext = $('.item_next'),
+          $itemArrow = $('.item_arrow'),
+          $navDot,
+          $navDots = $('.nav_dots'),
+          swipeDir,
+          slideSpeed = .45,
+          slideMeth = Power2.EaseInOut;
     
     $(window).resize(function() {
-      activeID = 0;
-      itemW = document.getElementById("carousel_container").offsetWidth;
+      //activeID = 0;
+      itemW = document.getElementById("carousel_container").offsetWidth+1;
       itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
       carousel_count = $('.carousel_item').length;
       $carouselItems = $('.carousel_items');
@@ -76,29 +106,15 @@ function carousel(argument) {
       setupDots();
       navigateSlide();
 
-      var title         =  $('.slideShow__slideTitle')[activeID];
-      var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
-      
-      var tl            = new TimelineLite(); 
-      tl.fromTo(title, 0.6, {top:200, opacity: 0},{top:340, opacity:.5}, '-=0.3')  
-        .fromTo(subTitle, 0.6, {top:200, opacity: 0},{top:420, opacity:.5}, '-=0.3')
     }
 
     function resize() {
-       
       $carouselItems.css({'width': (itemW * carousel_count) + 'px'});
       $navDots.css({'width': (25 * carousel_count) + 'px'});
       $carouselItem.css({'width': itemW+'px'});
       $itemArrow.css({'opacity': .8});
       setupDraggable();
       navigateSlide();
-
-      var title         =  $('.slideShow__slideTitle')[activeID];
-      var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
-      
-      var tl            = new TimelineLite(); 
-      tl.fromTo(title, 0.6, {top:200, opacity: 0},{top:(itemH - (itemH/3)-100), opacity:.5}, '-=0.3')  
-        .fromTo(subTitle, 0.6, {top:200, opacity: 0},{top:(itemH - (itemH/3)), opacity:.5}, '-=0.3')
     }
 
     init();
@@ -152,6 +168,10 @@ function carousel(argument) {
       
       if(activeID + 1 == carousel_count) {$arrowNext.fadeOut()}
       else {$arrowNext.fadeIn()}
+
+      if (document.readyState === "complete"){
+        load_title();
+      }
     }
 
     $itemArrow.on('click', function() {

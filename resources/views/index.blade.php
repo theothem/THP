@@ -16,7 +16,7 @@
     <body>
 
     <div id="main_title">
-        <p>Welcome to iWorx Portfolio</p>
+        <p>Welcome to iWorx Portfolio!</p>
     </div>
 
     <div class="left_sidebar">
@@ -35,6 +35,8 @@
                 </li>
                 <li class="carousel_item" id="item_1">
                   <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_2.jpg" />
+                  <h2 class="slideShow__slideTitle">iWorx</h2>
+                    <div class="slideShow__slideSubTitle">- Web Design & Development</div>
                 </li>
                 <li class="carousel_item" id="item_2">
                   <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_3.jpg" />
