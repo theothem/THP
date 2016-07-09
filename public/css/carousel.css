@@ -1,0 +1,64 @@
+/* carousel*/
+
+.carousel_items ul {
+    padding: 0;
+    list-style-type: none;
+}
+.carousel_container
+{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	overflow: hidden;	
+}
+
+.carousel_items
+{
+	position: relative;
+	cursor: default !important;
+}
+
+.carousel_item
+{
+	float:left;
+  	border: 0px solid #cc0000;
+}
+
+.slideshow_image{
+	display: block;
+}
+
+.nav_dots
+{
+	position: relative;
+	bottom: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 50001;
+  	border: 1px solid #cc0000;
+}
+
+.nav_dot
+{
+	width: 6px;
+	height: 6px;
+	float: left;
+	border: 1px solid #fff;
+	background-color: #fff;
+	margin-left: 15px;	
+	border-radius: 50%;   
+	margin-top: 50px; 
+}
+
+.grab 
+{
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+}
+
+.grabbing
+{
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+}
