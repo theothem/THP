@@ -1,6 +1,6 @@
 var activeID = 0;
 $(window).ready(function(){
-  scroll();
+  //scroll();
   carousel();
 });
 
@@ -34,10 +34,10 @@ function load_title(){
   itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
   var title         =  $('.slideShow__slideTitle')[activeID];
   var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
-
-  TweenLite.set(title, {perspective:400});
+  
   var tl            = new TimelineLite(); 
   if (title){
+    TweenLite.set(title, {perspective:400});
     tl.fromTo(title, 0.6, {top:0, opacity: 0},
         { 
           rotationX:360, 
