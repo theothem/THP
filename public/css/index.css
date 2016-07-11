@@ -49,6 +49,8 @@ body{
 	margin-top: 100px;
 	width: 80%;
 	margin-left: 10%;
+	outline: none;
+	outline-color: black;
 }
 
 .right_sidebar{
@@ -123,6 +125,8 @@ ul {
 	border: 1px solid #fff;
 	background-color: #fff;
 	margin-left: 15px;	
+	margin-top: 20px;
+	margin-bottom: 5px;
 	border-radius: 50%;    
 }
 
@@ -203,7 +207,6 @@ ul {
     font-size: 1.2em; 
     font-family: sans-serif;
     padding: .5rem;
-    padding-top: 0px;
     font-weight: 300;
     text-decoration: none;
     color: white;
@@ -215,4 +218,14 @@ ul {
 
 .titleWrap a:visited,.titleWrap a:link,.titleWrap a:hover,.titleWrap a:active{
     text-decoration: none;
+}
+
+
+:focus {
+    outline: none;
+}
+
+.slideShow__slideTitle a, .slideShow__slideSubTitle a{
+	text-decoration: none;
+	color: white;
 }

@@ -1,11 +1,15 @@
 var activeID = 0;
 $(window).ready(function(){
-  //scroll();
+  scroll();
   carousel();
 });
 
 $(window).load(function(){
   load_title();
+});
+
+$('.main').focus(function(){
+  window.alert('mpainw');
 });
 
 function scroll() {
@@ -59,8 +63,9 @@ function load_title(){
 
 function carousel(argument) {
   var carousel = (function () {
+    var   plus  = (document.getElementById("carousel_container").offsetWidth+1)*6/100;
     
-    var   itemW = document.getElementById("carousel_container").offsetWidth+1,
+    var   itemW = document.getElementById("carousel_container").offsetWidth+plus,
           itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight,
           carousel_count = $('.carousel_item').length,
           $carouselItems = $('.carousel_items'),
@@ -77,8 +82,8 @@ function carousel(argument) {
           slideMeth = Power2.EaseInOut;
     
     $(window).resize(function() {
-      //activeID = 0;
-      itemW = document.getElementById("carousel_container").offsetWidth+1;
+      var   plus  = (document.getElementById("carousel_container").offsetWidth+1)*6/100;
+      itemW = document.getElementById("carousel_container").offsetWidth+plus;
       itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
       carousel_count = $('.carousel_item').length;
       $carouselItems = $('.carousel_items');
@@ -153,7 +158,7 @@ function carousel(argument) {
 
     // navigate slide
     function navigateSlide() {
-    
+      animateSlideOut(activeID); 
       if(activeID >= carousel_count-1) activeID = carousel_count-1;
       if(activeID <= 0) activeID = 0;   
               
@@ -162,6 +167,14 @@ function carousel(argument) {
     }
 
     function slideDone() {
+      
+      $navDot.css({backgroundColor: '#fff'});
+     
+      animateSlideIn(activeID);
+
+      //dot animation
+      TweenMax.to($navDot, .35, {scale: 1, color: 0xFFFFFF});
+      TweenMax.to($('#dot_' + activeID), .35, {scale: 1.5, backgroundColor: 'transparent',color: 0xCC0000});
       //
       if(activeID == 0) {$arrowPrev.fadeOut()} 
       else {$arrowPrev.fadeIn()}
@@ -184,12 +197,12 @@ function carousel(argument) {
       navigateSlide();
     });
     
-    $itemArrow.on('touchstart', function() {
+    /*$itemArrow.on('touchstart', function() {
       if($(this).hasClass('item_next')) {activeID++}
       else {activeID--};
       
       navigateSlide();
-    });
+    });*/
 
     $navDot.hover(    
       function() {      
@@ -224,4 +237,23 @@ function carousel(argument) {
       $(this).addClass('grab');
     });  
   })();
+}
+
+function animateSlideIn(activeID) {
+
+  var image         =  $('.image')[activeID];
+
+  var tl = new TimelineLite();    
+  tl.to(image, 0.4, {scale: 1.1, ease:Power2.easeOut},'-=0.6' )
+}
+
+var animateSlideOut = function(activeID) {
+    if (activeID<=0)
+      return;
+    else
+      activeID -= 1;
+    var image         =  $('.image')[activeID];
+    
+    var tl = new TimelineLite();
+    tl.to(image, 0.4, {scale: 1, ease:Power2.easeIn}, '-=0.3' );
 }
