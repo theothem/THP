@@ -31,13 +31,18 @@
               <ul>
                 <li class="carousel_item" id="item_0">
                   <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_1.jpg" />
-                    <h2 class="slideShow__slideTitle"><a href="https://www.iworx.gr/" target="_blank">iWorx</a></h2>
-                    <div class="slideShow__slideSubTitle"><a href="https://www.iworx.gr/" target="_blank">- Web Design & Development</a></div>
+                  <h2 class="slideShow__slideTitle"><a href="https://www.iworx.gr/" target="_blank">iWorx</a></h2>
+                  <div class="slideShow__slideSubTitle"><a href="https://www.iworx.gr/" target="_blank">- Web Design & Development</a></div>
+                  <figcaption>
+                    <h2>This is a cool title!</h2>
+                    <img class="imageFig" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_1.jpg">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                  </figcaption>
                 </li>
                 <li class="carousel_item" id="item_1">
                   <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_2.jpg" />
                   <h2 class="slideShow__slideTitle">iWorx</h2>
-                    <div class="slideShow__slideSubTitle">- Web Design & Development</div>
+                  <div class="slideShow__slideSubTitle">- Web Design & Development</div>
                 </li>
                 <li class="carousel_item" id="item_2">
                   <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_3.jpg" />
@@ -75,6 +80,10 @@
             </div>
           </div>
           <div class="nav_dots"></div>
+          <div class="info_box">
+            <hr class="info_hr">
+            <a class="info_title">Info</a>
+          </div>
         </div>
     </div>
 

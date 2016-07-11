@@ -6,6 +6,8 @@ $(window).ready(function(){
 
 $(window).load(function(){
   load_title();
+  info();
+  info_onclick();
 });
 
 $('.main').focus(function(){
@@ -63,6 +65,7 @@ function load_title(){
 
 function carousel(argument) {
   var carousel = (function () {
+    //plus :  fix container width to fit scale.
     var   plus  = (document.getElementById("carousel_container").offsetWidth+1)*6/100;
     
     var   itemW = document.getElementById("carousel_container").offsetWidth+plus,
@@ -158,7 +161,7 @@ function carousel(argument) {
 
     // navigate slide
     function navigateSlide() {
-      animateSlideOut(activeID); 
+      animateSlideOut(activeID);
       if(activeID >= carousel_count-1) activeID = carousel_count-1;
       if(activeID <= 0) activeID = 0;   
               
@@ -185,6 +188,7 @@ function carousel(argument) {
       if (document.readyState === "complete"){
         load_title();
       }
+      info();
     }
 
     $itemArrow.on('click', function() {
@@ -240,7 +244,6 @@ function carousel(argument) {
 }
 
 function animateSlideIn(activeID) {
-
   var image         =  $('.image')[activeID];
 
   var tl = new TimelineLite();    
@@ -248,12 +251,67 @@ function animateSlideIn(activeID) {
 }
 
 var animateSlideOut = function(activeID) {
-    if (activeID<=0)
-      return;
-    else
-      activeID -= 1;
-    var image         =  $('.image')[activeID];
-    
-    var tl = new TimelineLite();
-    tl.to(image, 0.4, {scale: 1, ease:Power2.easeIn}, '-=0.3' );
+  if(activeID <0){
+    return;
+  }
+  
+
+  for (var i = 0; i < $('.image').length; i++) {
+    if (i==activeID)
+      continue;
+    var image    =  $('.image')[i];
+    if (image){
+      var tl = new TimelineLite();
+      tl.to(image, 0.01, {scale: 1, ease:Power2.easeIn}, '-=0.5' );
+    }
+  }
 }
+
+function info_onclick() {
+  $('.info_title').click(function(){
+    window.alert('Go info'); 
+    $('.image').css({
+      '-webkit-transform':'rotateY(180deg)',
+      '-moz-transform':'rotateY(180deg)',
+      transform:'rotateY(180deg)'
+    });
+    $('figcaption').css({
+      'backface-visibility':'initial',
+      'height':document.getElementsByClassName("carousel_item")[0].offsetHeight,
+      'width':document.getElementsByClassName("carousel_item")[0].offsetWidth,
+      '-webkit-transform': 'rotateY(0deg)'
+    });
+  });
+}
+
+
+function info() {
+  
+  itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
+  var infoHr          =  $('.info_box hr');
+  var info_title      =  $('.info_title');
+  infoHr.css({'display':'block'});
+  
+  var tl            = new TimelineLite(); 
+  tl.fromTo(infoHr, 0.6,
+      {
+        top:itemH,
+        display:'none',
+      },
+      {    
+        display:'block', 
+        ease:Circ.easeOut,
+        top:itemH+120
+      }, '-=0.3')
+  .fromTo(info_title, 0.6,
+      {
+        display:'none',
+        top:itemH
+      },
+      {   
+        display:'initial', 
+        ease:Circ.easeOut,
+        top:itemH+167,
+      },'-=0.3'); 
+}
+
