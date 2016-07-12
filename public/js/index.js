@@ -1,4 +1,7 @@
-var activeID = 0;
+var activeID    = 0;
+var info_active = 0;    //defines whether info panel is active or not
+
+
 $(window).ready(function(){
   scroll();
   carousel();
@@ -268,20 +271,54 @@ var animateSlideOut = function(activeID) {
 }
 
 function info_onclick() {
-  $('.info_title').click(function(){
-    window.alert('Go info'); 
-    $('.image').css({
-      '-webkit-transform':'rotateY(180deg)',
-      '-moz-transform':'rotateY(180deg)',
-      transform:'rotateY(180deg)'
+  var slideShow__slideTitle     =   $('.slideShow__slideTitle');
+  var slideShow__slideSubTitle  =   $('.slideShow__slideSubTitle');
+  var image                     =   $('.image');
+
+  if (info_active == 0){
+    info_active = 1;
+    window.alert(info_active);
+    $('.info_title').click(function(){
+      image.css({
+        '-webkit-transform':'rotateY(180deg)',
+        '-moz-transform':'rotateY(180deg)',
+        transform:'rotateY(180deg)'
+      });
+      slideShow__slideTitle.css({
+        'opacity':'1',
+        'background-color':'transparent',
+        'letter-spacing': '5px',
+        'font-family': 'Gza',
+        'color': '#fff',
+        'white-space': 'nowrap',
+      });
+      slideShow__slideSubTitle.css({
+        'opacity':'1' ,
+        'background-color':'transparent',
+      });
+      $('figcaption').css({
+        'backface-visibility':'initial',
+        'height':document.getElementsByClassName("carousel_item")[0].offsetHeight,
+        'width':document.getElementsByClassName("carousel_item")[0].offsetWidth,
+        '-webkit-transform': 'rotateY(0deg)'
+      });
+      
+      var tl                        =   new TimelineLite(); 
+      tl.to(slideShow__slideTitle, 0.6,
+      {    
+        ease:Circ.easeOut,
+        top:'10%'
+      }, '-=0.3')
+      .to(slideShow__slideSubTitle, 0.6,
+      {    
+        ease:Circ.easeOut,
+        top: 'calc(10% + 90px)'
+      }, '-=0.3')
     });
-    $('figcaption').css({
-      'backface-visibility':'initial',
-      'height':document.getElementsByClassName("carousel_item")[0].offsetHeight,
-      'width':document.getElementsByClassName("carousel_item")[0].offsetWidth,
-      '-webkit-transform': 'rotateY(0deg)'
-    });
-  });
+  }
+  else{
+    window.alert('mpainw');
+  }
 }
 
 

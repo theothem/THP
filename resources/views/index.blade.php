@@ -34,9 +34,13 @@
                   <h2 class="slideShow__slideTitle"><a href="https://www.iworx.gr/" target="_blank">iWorx</a></h2>
                   <div class="slideShow__slideSubTitle"><a href="https://www.iworx.gr/" target="_blank">- Web Design & Development</a></div>
                   <figcaption>
-                    <h2>This is a cool title!</h2>
-                    <img class="imageFig" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_1.jpg">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <div class="info_text">
+                      <h2>This is a cool title!</h2>
+                      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                    </div>
+                    <div class="info_img">
+                      <img class="imageFig" src="images/img1.png">
+                    </div>
                   </figcaption>
                 </li>
                 <li class="carousel_item" id="item_1">
