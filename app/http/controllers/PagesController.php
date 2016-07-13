@@ -15,4 +15,8 @@ class PagesController extends Controller
     public function index2(){
     	return view('index2');
     }
+
+    public function oldslider(){
+    	return view('oldslider');
+    }
 }

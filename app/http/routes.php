@@ -13,3 +13,4 @@
 
 Route::get('/', 'PagesController@index');
 Route::get('index2', 'PagesController@index2');
+Route::get('oldslider', 'PagesController@oldslider');
