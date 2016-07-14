@@ -25,28 +25,30 @@
     </div>
 
     <div class="main">
-      <div class="customer">
-        <div class="image_border">
-          <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_1.jpg" />
-        </div>       
-        <h2 class="slideShow__slideTitle"><a href="https://www.iworx.gr/" target="_blank">iWorx</a></h2>
-        <div class="slideShow__slideSubTitle"><a href="https://www.iworx.gr/" target="_blank">- Web Design & Development</a></div>
-        <!-- <figcaption>
-          <div class="info_text">
-            <h2>This is a cool title!</h2>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+      <div class="slideshow">
+          <div id="carousel_container" class="carousel_container">
+            <div class="carousel_item" id="item_0" onclick="info_handle(0);return false;">
+              <img class="image" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/231648/MB_CLA_1.jpg" />
+              <h2 class="slideShow__slideTitle"><a href="https://www.iworx.gr/" target="_blank">iWorx</a></h2>
+              <div class="slideShow__slideSubTitle"><a href="https://www.iworx.gr/" target="_blank">- Web Design & Development</a></div>
+              <figcaption>
+                <div class="info_text">
+                  <h2>This is a cool title!</h2>
+                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                </div>
+                <div class="info_img">
+                  <img class="imageFig" src="images/img1.png">
+                </div>
+              </figcaption>
+            </div>
+            <div class="info_box">
+              <hr class="info_hr">
+              <a class="info_title" onclick="info_handle(0);return false;">Info</a>
+            </div>
           </div>
-          <div class="info_img">
-            <img class="imageFig" src="images/img1.png">
-          </div>
-        </figcaption> -->
-      
-        <!-- <div class="info_box">
-          <hr class="info_hr">
-          <a class="info_title">Info</a>
-        </div> -->
       </div>
     </div>
+
     <div class="right_sidebar"> 
     </div>
                     

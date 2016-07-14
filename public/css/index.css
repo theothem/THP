@@ -64,26 +64,30 @@ body{
 	background-color: gray;
 }
 
-.customer{
-	height: calc(100% - 100px);
+.slideshow{
+	/*height: calc(100% - 100px);*/
 	width: 100%;
 	float: left;
 	display: block;
 }
 
-.customer .image_border{
-	float: left;
-	display: block;
+.carousel_item img{
+	height: 100%;
+	width: 100%;
+}
+
+.carousel_container{
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
 	width: 80%;
-	height: 100%;
-	margin-left: 10%;
+	overflow: hidden;	
 }
 
-.customer img{
-	float: left;
-	display: block;
-	width: 100%;
-	height: 100%;
+.carousel_item{
+	float:left;
+  	border: 0px solid #cc0000;
+  	cursor: w-resize;
 }
 
 .slideShow__slideTitle{
@@ -93,17 +97,18 @@ body{
     font-size: 3em;
     letter-spacing: 2px;
     line-height: 1;
+    margin: 15px 0 0;
     opacity: 0.7;
     padding: .2em;
     text-decoration: none;
     background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
-    top: -70px;
-    left: 20%;
-    margin-bottom: 10px;
+    top: 100;
+    margin-left: 36px;
 }
 
 .slideShow__slideSubTitle {
+	z-index: 500;
     font-size: 1.2em; 
     font-family: sans-serif;
     padding: .5rem;
@@ -112,9 +117,9 @@ body{
     color: white;
     background-color: rgba(0, 0, 0, 0.4);	
     position: absolute;
-    top:-40px;
-    left: 20%;
-  }
+    top:100;
+    margin-left: 36px;
+}
 
 :focus {
     outline: none;
@@ -125,3 +130,136 @@ body{
 	color: white;
 }
 
+.info_box{
+	color: white;
+    width: 50px;
+    height: auto;
+    float: right;
+    margin-right: 15%;
+    text-align: center;
+}
+
+.info_box hr{
+	height: 50px;
+	width: 0px;
+	margin: 0px;
+	padding:0px;
+	text-align: center;
+	position: fixed;
+	margin-top: -20px;
+	margin-left: 24px;
+	top: 500px;
+	display: none;
+}
+
+.info_box a{
+	position: fixed;
+	cursor: pointer;
+	float: left;
+	width: 30px;
+	font-size: 16px;
+	font-family: sans-serif;
+	letter-spacing: 1px;
+	margin-left: -15px;
+	top: 540px;
+	display: none;
+	display:table-cell;
+	vertical-align:middle;
+	-webkit-transform: rotate(-90deg);
+	/* Firefox */
+	-moz-transform: rotate(-90deg);
+	/* IE */
+	-ms-transform: rotate(-90deg);
+	/* Opera */
+	-o-transform: rotate(-90deg);
+	/* Internet Explorer */
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+	
+figcaption {
+    display:block;
+    position:absolute;
+    z-index:5;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+    transform-style: preserve-3d;
+  	transition: transform 1s!important;
+}
+
+figcaption .info_text{
+	display: inline;
+	float: left;
+	width: 100%;
+	height: 70%;
+	margin-top: 15%;
+}
+
+figcaption .info_text h2{
+	font-family:'Lato';
+    color:#fff;
+    font-size:20px;
+    float: left;
+    display: block;
+    width: 90%;
+    height: auto;
+    max-height: 20%;
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+figcaption .info_text p{
+	display:block;
+    font-family:'Lato';
+    font-size:16px;
+    line-height:18px;
+    margin:0;
+    color:#fff;
+    float: left;
+    display: block;
+    width: 50%;
+    height: 70%;
+    margin-left: 10px;
+    opacity: 0.8;
+}
+
+figcaption .info_img{
+	width: 50%;
+	max-height: 100%;
+	float: right;
+	display: inline;
+}
+
+figcaption .info_img .imageFig{
+	float: left;
+	width: 90%;
+	padding-right: 20px;
+	position: fixed;
+    width: 50%;
+    height: 100%;
+    top: -30%;
+}
+
+figcaption {
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    padding:29px 44px;
+    background-color:rgba(26,76,110,0.5);
+    text-align:left;
+    backface-visibility:hidden;
+    -webkit-transform:rotateY(-180deg);
+    -moz-transform:rotateY(-180deg);
+    transform:rotateY(-180deg);
+    -webkit-transition:all .5s;
+    -moz-transition:all .5s;
+    transition:all .5s
+}
+
+.image{
+	backface-visibility:hidden;
+    -webkit-transition:all .5s;
+    -moz-transition:all .5s;
+    transition:all .5s
+}
