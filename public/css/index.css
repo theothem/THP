@@ -65,10 +65,17 @@ body{
 }
 
 .slideshow{
-	/*height: calc(100% - 100px);*/
+	height: 100%;
 	width: 100%;
 	float: left;
 	display: block;
+}
+
+.website{
+	float: left;
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .carousel_item img{
@@ -228,6 +235,7 @@ figcaption .info_img{
 	max-height: 100%;
 	float: right;
 	display: inline;
+	cursor: pointer;
 }
 
 figcaption .info_img .imageFig{

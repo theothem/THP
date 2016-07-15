@@ -1,6 +1,6 @@
-var activeID    = 0;
-var info_active = 0;    //defines whether info panel is active or not
-
+var activeID      = 0;
+var info_active   = 0;    //defines whether info panel is active or not
+var max_active_id = 0;
 
 $(window).ready(function(){
   image_container();
@@ -11,11 +11,17 @@ $(window).load(function(){
   info();
 });
 
-function info_handle(activeID){
-  if (info_active == 0)
-    info_onclick_open(activeID); 
-  else
-    info_onclick_close(activeID);
+function info_handle(){
+  if (info_active == 0){
+    info_onclick_open(); 
+  }
+  else if (info_active == -1){
+    info_active = 0;
+    return;
+  }
+  else{
+    info_onclick_close();
+  }
 }
 
 
@@ -26,17 +32,20 @@ $(window).resize(function() {
   itemH                     = document.getElementsByClassName("carousel_item")[0].offsetHeight;
   $main                     = $('.main'),
   $carouselItem             = $('.carousel_item');
+  $website                  = $('website');
   $slideShow__slideTitle    = $('.slideShow__slideTitle');
   $slideShow__slideSubTitle = $('.slideShow__slideSubTitle');
   slideSpeed                = .45;
   slideMeth                 = Power2.EaseInOut;
   html                      = document.documentElement,
   mainHeight                = $(this).height() - 100;
+  max_active_id             = $('.main').height() / $('.website').height() -1;
 
   $(this).css("height", mainHeight); 
-  $main.css({height: mainHeight});
+  //$main.css({height: mainHeight});
+  //$website.css({height: mainHeight});
   $carouselItem.css({'width': itemW+'px'});
-  info_onclick_close(activeID);
+  info_onclick_close();
   animateSlideIn();
   load_title();
   info(); 
@@ -44,56 +53,118 @@ $(window).resize(function() {
 
 $(window).on("mousewheel DOMMouseScroll", function(event){
   event.preventDefault(); 
-  animateSlideOut();
+
   var scrollTime      = 1.1; 
-  var scrollDistance  = $(this).height();
+  var scrollDistance  = $('.main').height();
+
+  max_active_id = $('.main').height() / $('.website').height() -1;
   
   var delta           = event.originalEvent.wheelDelta/120 || -event.originalEvent.detail/3;
+
   var scrollTop       = $(window).scrollTop();
   var finalScroll     = scrollTop - parseInt(delta*scrollDistance);
+  
+  if ((finalScroll < 0) && (scrollTop == 0)){
+    //window.alert(1);
+    return;
+  }
+  else if (finalScroll > scrollDistance){
+    // window.alert(2);
+    return;
+  }
+
+  info_onclick_close();
+  unload_title();
+  unload_info();
+  animateSlideOut();
+
 
   TweenMax.to($(window), scrollTime, {
-    scrollTo    : { y: finalScroll, autoKill:true },
+    scrollTo    : { y: finalScroll, autoKill:false },
       ease      : "Expo.easeInOut",
+      delay     : 0.3,
       overwrite : 5              
   });
+  
+  if ((finalScroll > 0)&&(activeID < max_active_id))
+    activeID++;
+  else if ((finalScroll < 0)&&(activeID > 0))
+    activeID--;
+
+  animateSlideIn();
+  load_title();
+  info(); 
+
 });
 
-function load_title(){
-  itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
+function unload_title() {
+  itemH = document.getElementsByClassName("carousel_item")[activeID].offsetHeight;
   var title         =  $('.slideShow__slideTitle')[activeID];
   var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
   
   var tl            = new TimelineLite(); 
   if (title){
     TweenLite.set(title, {perspective:400});
-    tl.fromTo(title, 0.6, {top:0, opacity: 0},
-        { 
-          rotationX:360, 
-          transformOrigin:"0% 50% -50",  
-          ease:Circ.easeOut,top:(itemH - (itemH/6)-100),
-          opacity:.5
-        }, '-=0.3');  
+    tl.to(title, 0.6, 
+    {   
+      ease:Circ.easeOut,
+      top:-200,
+      opacity:.5
+    }, '-=0.3');
   }
   if (subTitle)
-    tl.fromTo(subTitle, 0.6, {top:0, opacity: 0},
-      {
-        rotationX:360, 
-        transformOrigin:"0% 50% -50",  
-        ease:Back.easeOut,top:(itemH - (itemH/6)),
-        opacity:.5
-      }, '-=0.3');
+    tl.to(subTitle, 0.6, 
+    {
+      ease:Back.easeOut,
+      top:-200,
+      opacity:.5
+    }, '-=0.3');  
 }
 
-function image_container(argument) {
+function load_title(){
+  itemH = document.getElementsByClassName("carousel_item")[activeID].offsetHeight;
+  var title         =  $('.slideShow__slideTitle')[activeID];
+  var subTitle      =  $('.slideShow__slideSubTitle')[activeID];
+  
+  var tl            = new TimelineLite(); 
+  if (title){
+    TweenLite.set(title, {perspective:400});
+    tl.fromTo(title, 0.6, 
+    {
+      top:0, opacity: 0
+    },
+    { 
+      rotationX:360, 
+      transformOrigin:"0% 50% -50",  
+      ease:Circ.easeOut,
+      top:(itemH - (itemH/6)-100),
+      opacity:.5
+    },'+=0.7');  
+  }
+  if (subTitle)
+    tl.fromTo(subTitle, 0.6, 
+    {
+      top:0, opacity: 0
+    },
+    {
+      rotationX:360, 
+      transformOrigin:"0% 50% -50",  
+      ease:Back.easeOut,
+      top:(itemH - (itemH/6)),
+      opacity:.5
+    });
+}
+
+function image_container() {
   //plus :  fix container width to fit scale.
   var   plus                      = (document.getElementById("carousel_container").offsetWidth+1)*6/100,
         itemW                     = document.getElementById("carousel_container").offsetWidth+plus,
-        itemH                     = document.getElementsByClassName("carousel_item")[0].offsetHeight,
-        mainH                     = document.getElementsByClassName("main")[0].offsetHeight,
+        itemH                     = document.getElementsByClassName("carousel_item")[activeID].offsetHeight,
+        mainH                     = document.getElementsByClassName("main")[activeID].offsetHeight,
         mainW                     = document.getElementsByClassName("main").offsetWidth,
         $carouselItem             = $('.carousel_item'),
-        $main                     = $('.main'),
+        $carousel_container       = $('.carousel_container'),
+        $website                  = $('.website'),
         $slideShow__slideTitle    = $('.slideShow__slideTitle'),
         $slideShow__slideSubTitle = $('.slideShow__slideSubTitle'),
         slideSpeed                = .45,
@@ -101,37 +172,31 @@ function image_container(argument) {
         html                      = document.documentElement,
         mainHeight                = $(this).height() - 100;
 
-  $(this)       .css("height", mainHeight); 
-  $main         .css({height: mainHeight});
+  $(this)       .css("height", mainHeight);
+  $website      .css({height: mainHeight});
   $carouselItem .css({'width': itemW+'px'});
   animateSlideIn();
 }
 
-function animateSlideIn(activeID) {
-  var image         =  $('.image')[0];
+function animateSlideIn() {
+  var image         =  $('.image')[activeID];
 
   var tl = new TimelineLite();    
-  tl.fromTo(image, 0.6,{scale: 0.8, ease:Power2.easeOut}, {scale: 1.2, ease:Power2.easeOut},'-=0.6' )
+  tl.to(image, 0.8,{scale: 1.2, ease:Power2.easeOut},'-=0.6' )
 }
 
-var animateSlideOut = function(activeID) {
+var animateSlideOut = function() {
   if(activeID <0){
     return;
   }
-  
 
-  for (var i = 0; i < $('.image').length; i++) {
-    if (i==activeID)
-      continue;
-    var image    =  $('.image')[i];
-    if (image){
-      var tl = new TimelineLite();
-      tl.to(image, 0.01, {scale: 1, ease:Power2.easeIn}, '-=0.5' );
-    }
-  }
+  var image         =  $('.image')[activeID];
+
+  var tl = new TimelineLite();
+  tl.to(image, 0.3, {scale: 0.8, ease:Power2.easeIn});
 }
 
-function info_onclick_open(activeID) {
+function info_onclick_open() {
   
   var slideShow__slideTitle     =   $('.slideShow__slideTitle')[activeID];
   var slideShow__slideSubTitle  =   $('.slideShow__slideSubTitle')[activeID];
@@ -140,10 +205,12 @@ function info_onclick_open(activeID) {
   var carousel_item             =   $('.carousel_item')[activeID];
 
 
-  carousel_item.style.position   = 'fixed';
+  carousel_item.style.position    = 'fixed';
+  carousel_item.style.top         = '100px';
 
-  if (!figcaption)
+  if (!figcaption){
     return;
+  }
 
   info_active = 1;
 
@@ -171,7 +238,7 @@ function info_onclick_open(activeID) {
   {    
     ease:Circ.easeOut,
     opacity: 0.7,
-    top:'0%'
+    top:'0'
   }, '-=0.3')
   .to(slideShow__slideSubTitle, 0.6,
   {    
@@ -181,7 +248,7 @@ function info_onclick_open(activeID) {
   }, '-=0.9')
 }
 
-function info_onclick_close(activeID) {
+function info_onclick_close() {
   
   var slideShow__slideTitle     =   $('.slideShow__slideTitle')[activeID];
   var slideShow__slideSubTitle  =   $('.slideShow__slideSubTitle')[activeID];
@@ -219,13 +286,30 @@ function info_onclick_close(activeID) {
   animateSlideIn(activeID);
 }
 
-function info() {
+function unload_info(){
+  itemH = document.getElementsByClassName("carousel_item")[activeID].offsetHeight;
+  var infoHr          =  $('.info_hr');
+  var info_title      =  $('.info_title');
   
-  itemH = document.getElementsByClassName("carousel_item")[0].offsetHeight;
+  
+  var tl            = new TimelineLite(); 
+  tl.to(infoHr, 0.3,
+  {
+    top:-100,
+    display:'none'
+  })
+  .to(info_title, 0.3,
+  {
+    top:itemH+117,
+    display:'none',
+  });
+}
+
+function info() {
+  itemH = document.getElementsByClassName("carousel_item")[activeID].offsetHeight;
   var infoHr          =  $('.info_box hr');
   var info_title      =  $('.info_title');
-  infoHr.css({'display':'block'});
-  
+
   var tl            = new TimelineLite(); 
   tl.fromTo(infoHr, 0.6,
       {
@@ -233,19 +317,25 @@ function info() {
         display:'none',
       },
       {    
+        delay:0.9,
         display:'block', 
         ease:Circ.easeOut,
         top:itemH+100
-      }, '-=0.3')
+      })
   .fromTo(info_title, 0.6,
       {
         display:'none',
         top:itemH
       },
-      {   
+      {
         display:'initial', 
         ease:Circ.easeOut,
         top:itemH+147,
-      },'-=0.3'); 
+      }); 
+}
+
+function redirect_to(url){
+  info_active = -1;
+   window.open(url,'_blank');
 }
 
